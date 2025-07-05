@@ -1,0 +1,23 @@
+-- Create the database
+CREATE DATABASE IF NOT EXISTS victronics_db;
+USE victronics_db;
+
+-- Create the employees table
+CREATE TABLE employees (
+    username VARCHAR(50) PRIMARY KEY,
+    emp_name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    phone VARCHAR(20),
+    profile_picture VARCHAR(255),
+    role ENUM('staff', 'admin') DEFAULT 'staff',
+    password VARCHAR(255) NOT NULL
+);
+
+-- Create the task table
+CREATE TABLE task (
+    task_id INT AUTO_INCREMENT PRIMARY KEY,
+    task_description TEXT NOT NULL,
+    assigned_to VARCHAR(50),
+    status ENUM('pending', 'accepted', 'rejected') DEFAULT 'pending',
+    FOREIGN KEY (assigned_to) REFERENCES employees(username)
+);
